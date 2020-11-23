@@ -8,12 +8,16 @@ import {
 import { formatDate } from "../utils";
 import { RootStore } from "./RootStore";
 
-//todo - publish to netlify
+export type StopwatchHydration = {
+  startTime: number;
+  size: "BIG" | "SMALL";
+};
+
 export class StopwatchStore {
   root: RootStore;
   size: "BIG" | "SMALL" = "SMALL";
   state: "STOPPED" | "STARTED" | "PAUSED" = "STOPPED";
-  lastUpdate = 0;
+  lastUpdate: number = 0;
   offset = 0;
   timer: number | undefined;
 
@@ -24,6 +28,7 @@ export class StopwatchStore {
       pause: action,
       resume: action,
       stop: action,
+      hydrate: action,
       timeString: computed,
       size: observable,
       state: observable,
@@ -34,7 +39,7 @@ export class StopwatchStore {
   start() {
     const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
     this.offset = timezoneOffset;
-    this.lastUpdate = Date.now();
+    this.lastUpdate = this.lastUpdate ? this.lastUpdate : Date.now();
     this.startInterval();
   }
 
@@ -51,7 +56,6 @@ export class StopwatchStore {
   stop() {
     this.state = "STOPPED";
     clearInterval(this.timer);
-    this.lastUpdate = 0;
   }
 
   protected startInterval() {
@@ -65,5 +69,12 @@ export class StopwatchStore {
 
   get timeString() {
     return formatDate(new Date(this.lastUpdate));
+  }
+
+  hydrate(data?: StopwatchHydration) {
+    if (data) {
+      this.lastUpdate = data.startTime;
+      this.size = data.size;
+    }
   }
 }

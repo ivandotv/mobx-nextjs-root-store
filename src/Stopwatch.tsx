@@ -6,7 +6,14 @@ export const Stopwatch = observer(function Stopwatch(props) {
   const store = useStopwatchStore();
 
   useEffect(() => {
-    store.start();
+    const id = setTimeout(() => {
+      store.start();
+    }, 1000);
+
+    return () => {
+      clearTimeout(id);
+      store.stop();
+    };
   }, [store]);
 
   return (

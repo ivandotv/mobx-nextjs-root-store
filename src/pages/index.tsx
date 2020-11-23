@@ -1,6 +1,8 @@
-import {Page} from '../Page'
+import { Page } from "../Page";
 export default function Home() {
   return (
-    <Page></Page>
-  )
+    <>
+      <Page title="Home - static render" />
+    </>
+  );
 }

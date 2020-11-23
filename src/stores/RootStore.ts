@@ -1,6 +1,9 @@
-import { StopwatchStore } from "./StopwatchStore";
+import { StopwatchHydration, StopwatchStore } from "./StopwatchStore";
 import { sizeSwitcherStoreFactory } from "./SizeSwitcherStore";
 
+export type RootStoreHydration = {
+  stopwatchStore?: StopwatchHydration;
+};
 export class RootStore {
   stopwatchStore: StopwatchStore;
   sizeSwitcherStore: ReturnType<typeof sizeSwitcherStoreFactory>;
@@ -11,5 +14,11 @@ export class RootStore {
   ) {
     this.stopwatchStore = new StopwatchClass(this);
     this.sizeSwitcherStore = colorSwitcher(this);
+  }
+
+  hydrate(data?: RootStoreHydration) {
+    if (data) {
+      this.stopwatchStore.hydrate(data.stopwatchStore);
+    }
   }
 }

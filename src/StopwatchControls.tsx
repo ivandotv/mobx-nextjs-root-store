@@ -3,21 +3,22 @@ import React, { useCallback } from "react";
 import { useRootStore } from "./providers/RootStoreProvider";
 
 export const StopwatchControls = observer(function StopwatchControls() {
-  const { stopwatchStore: clockStore } = useRootStore();
+  const { stopwatchStore } = useRootStore();
 
   const pause = useCallback(() => {
-    return clockStore.pause();
-  }, [clockStore]);
+    return stopwatchStore.pause();
+  }, [stopwatchStore]);
 
   const resume = useCallback(() => {
-    return clockStore.resume();
-  }, [clockStore]);
+    return stopwatchStore.resume();
+  }, [stopwatchStore]);
 
   return (
     <div className="buttons-wrap">
       <button
         disabled={
-          clockStore.state === "STOPPED" || clockStore.state === "PAUSED"
+          stopwatchStore.state === "STOPPED" ||
+          stopwatchStore.state === "PAUSED"
         }
         onClick={pause}
       >
@@ -25,7 +26,8 @@ export const StopwatchControls = observer(function StopwatchControls() {
       </button>
       <button
         disabled={
-          clockStore.state === "STARTED" || clockStore.state === "STOPPED"
+          stopwatchStore.state === "STARTED" ||
+          stopwatchStore.state === "STOPPED"
         }
         onClick={resume}
       >

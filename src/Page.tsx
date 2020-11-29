@@ -1,8 +1,8 @@
 import React from "react";
 import { Links } from "./Links";
 import { SizeControls } from "./SizeControls";
-import { Stopwatch } from "./Stopwatch";
-import { StopwatchControls } from "./StopwatchControls";
+import { Counter } from "./Counter";
+import { CounterControls } from "./CounterControls";
 
 export function Page({ title }: { title: string }) {
   return (
@@ -10,8 +10,8 @@ export function Page({ title }: { title: string }) {
       <div className="App-header">
         <h4>{title}</h4>
         <SizeControls />
-        <Stopwatch />
-        <StopwatchControls />
+        <Counter />
+        <CounterControls />
         <Links />
       </div>
     </div>

@@ -2,8 +2,8 @@ import { observer } from "mobx-react-lite";
 import React, { useCallback } from "react";
 import { useRootStore } from "./providers/RootStoreProvider";
 
-export const StopwatchControls = observer(function StopwatchControls() {
-  const { stopwatchStore } = useRootStore();
+export const CounterControls = observer(function CounterControls() {
+  const { counterStore: stopwatchStore } = useRootStore();
 
   const pause = useCallback(() => {
     return stopwatchStore.pause();

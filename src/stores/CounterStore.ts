@@ -8,17 +8,15 @@ import {
 import { formatDate } from "../utils";
 import { RootStore } from "./RootStore";
 
-export type StopwatchHydration = {
-  startTime: number;
-  size: "BIG" | "SMALL";
+export type CounterHydration = {
+  start: number;
 };
 
-export class StopwatchStore {
+export class CounterStore {
   root: RootStore;
   size: "BIG" | "SMALL" = "SMALL";
   state: "STOPPED" | "STARTED" | "PAUSED" = "STOPPED";
-  lastUpdate: number = 0;
-  offset = 0;
+  counter: number = 0;
   timer: number | undefined;
 
   constructor(root: RootStore) {
@@ -29,22 +27,17 @@ export class StopwatchStore {
       resume: action,
       stop: action,
       hydrate: action,
-      timeString: computed,
       size: observable,
       state: observable,
-      lastUpdate: observable,
+      counter: observable,
     });
   }
 
   start() {
-    const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
-    this.offset = timezoneOffset;
-    this.lastUpdate = this.lastUpdate ? this.lastUpdate : Date.now();
     this.startInterval();
   }
 
   resume() {
-    this.offset = Date.now() - this.lastUpdate;
     this.startInterval();
   }
 
@@ -62,19 +55,14 @@ export class StopwatchStore {
     this.state = "STARTED";
     this.timer = window.setInterval(() => {
       runInAction(() => {
-        this.lastUpdate = Date.now() - this.offset;
+        this.counter += 1;
       });
-    }, 10);
+    }, 100);
   }
 
-  get timeString() {
-    return formatDate(new Date(this.lastUpdate));
-  }
-
-  hydrate(data?: StopwatchHydration) {
+  hydrate(data?: CounterHydration) {
     if (data) {
-      this.lastUpdate = data.startTime;
-      this.size = data.size;
+      this.counter = data.start;
     }
   }
 }

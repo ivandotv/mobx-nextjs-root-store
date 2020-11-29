@@ -1,8 +1,6 @@
-import React, { createContext, ReactNode, useContext } from "react";
-import { StopwatchStore } from "../stores/StopwatchStore";
-import { RootStore, RootStoreHydration } from "../stores/RootStore";
-import { sizeSwitcherStoreFactory } from "../stores/SizeSwitcherStore";
 import { enableStaticRendering } from "mobx-react-lite";
+import React, { createContext, ReactNode, useContext } from "react";
+import { RootStore, RootStoreHydration } from "../stores/RootStore";
 
 enableStaticRendering(typeof window === "undefined");
 
@@ -18,9 +16,9 @@ export function useRootStore() {
   return context;
 }
 
-export function useStopwatchStore() {
-  const { stopwatchStore } = useRootStore();
-  return stopwatchStore;
+export function useCounterStore() {
+  const { counterStore } = useRootStore();
+  return counterStore;
 }
 
 export function useSizeSwitcherStore() {
@@ -42,12 +40,10 @@ export function RootStoreProvider({
   );
 }
 
-function initializeStore(initialData?: RootStoreHydration) {
-  const _store =
-    store ?? new RootStore(StopwatchStore, sizeSwitcherStoreFactory);
+function initializeStore(initialData?: RootStoreHydration): RootStore {
+  const _store = store ?? new RootStore();
 
   if (initialData) {
-    console.log("initial data - hydrate");
     _store.hydrate(initialData);
   }
   // For SSG and SSR always create a new store

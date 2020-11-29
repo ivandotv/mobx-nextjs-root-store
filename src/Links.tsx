@@ -4,12 +4,12 @@ import React from "react";
 export function Links() {
   return (
     <div className="links-wrap">
-      <Link href="/">
-        <a>Home</a>
-      </Link>
-      <Link href="/server-render">
-        <a>Server render</a>
-      </Link>
+      <a href="/?start=500">
+        start from <strong>500</strong>
+      </a>
+      <a href="/?start=1000">
+        start from <strong>1000</strong>
+      </a>
     </div>
   );
 }

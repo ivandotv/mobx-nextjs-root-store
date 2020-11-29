@@ -1,13 +1,13 @@
 import { observer } from "mobx-react-lite";
 import React, { useCallback } from "react";
 import {
-  useStopwatchStore,
+  useCounterStore,
   useSizeSwitcherStore,
 } from "./providers/RootStoreProvider";
 
 export const SizeControls = observer(function SizeControls() {
   const switchStore = useSizeSwitcherStore();
-  const stopwatchStore = useStopwatchStore();
+  const stopwatchStore = useCounterStore();
 
   const switchToBig = useCallback(() => {
     return switchStore.makeStopwatchBig();

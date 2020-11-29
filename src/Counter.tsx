@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import { useStopwatchStore } from "./providers/RootStoreProvider";
+import { useCounterStore } from "./providers/RootStoreProvider";
 
-export const Stopwatch = observer(function Stopwatch(props) {
-  const store = useStopwatchStore();
+export const Counter = observer(function Counter() {
+  const store = useCounterStore();
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -18,7 +18,7 @@ export const Stopwatch = observer(function Stopwatch(props) {
 
   return (
     <div className={store.size === "BIG" ? "big" : "small"}>
-      {store.timeString}
+      {store.counter}
     </div>
   );
 });

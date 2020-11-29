@@ -29,6 +29,8 @@
 }
 
 .links-wrap a {
-  margin: 0 10px;
+  margin: 20px;
   text-decoration: underline;
+  display: block;
+  font-size: 1rem;
 }

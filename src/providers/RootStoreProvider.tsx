@@ -6,6 +6,7 @@ enableStaticRendering(typeof window === "undefined");
 
 let store: RootStore;
 const StoreContext = createContext<RootStore | undefined>(undefined);
+StoreContext.displayName = "StoreContext";
 
 export function useRootStore() {
   const context = useContext(StoreContext);
